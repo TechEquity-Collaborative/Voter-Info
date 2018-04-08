@@ -1,5 +1,5 @@
 """
-WSGI config for voter_info_server project.
+WSGI config for voter_info project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "voter_info_server.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "voter_info.settings")
 
 application = get_wsgi_application()
