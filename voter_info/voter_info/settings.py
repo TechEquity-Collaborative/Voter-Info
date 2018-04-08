@@ -129,7 +129,7 @@ else:
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.backends.postgresql',
             'NAME': 'voter_info_dev',
             'HOST': '127.0.0.1',
             'PORT': '5432',
