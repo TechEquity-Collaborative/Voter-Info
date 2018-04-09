@@ -1,0 +1,10 @@
+{
+  "name": "Voter-Info",
+  "scripts": {},
+  "env": {},
+  "formation": {},
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": []
+}
