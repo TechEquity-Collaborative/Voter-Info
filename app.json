@@ -7,6 +7,8 @@
     "heroku-postgresql"
   ],
   "buildpacks": [
-    "heroku-buildpack-gdal"
+    {
+      "url": "https://github.com/mojodna/heroku-buildpack-gdal"
+    }
   ]
 }
