@@ -24,7 +24,7 @@ IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if IN_PRODUCTION:
-    SECRET_KEY = os.getenviron('DJANGO_SECRET_KEY', None)
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = False
 else:
     DEBUG = True
