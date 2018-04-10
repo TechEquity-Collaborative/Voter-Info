@@ -1,10 +1,37 @@
 {
   "name": "Voter-Info",
   "scripts": {},
-  "env": {},
-  "formation": {},
+  "env": {
+    "ON_HEROKU": {
+      "description": "Shows the app is on Heroku",
+      "value": true
+    },
+    "BUILD_WITH_GEO_LIBRARIES": {
+      "value": 1
+    },
+    "GDAL_LIBRARY_PATH": {
+      "value": "/app/.heroku/vendor/lib/libgdal.so"
+    },
+    "GEOS_LIBRARY_PATH": {
+      "value": "/app/.heroku/vendor/lib/libgeos_c.so"
+    }
+  },
+  "stack": "heroku-16",
   "addons": [
     "heroku-postgresql"
   ],
-  "buildpacks": []
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/dschep/heroku-geo-buildpack.git"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
 }

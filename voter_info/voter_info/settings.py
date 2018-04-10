@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = os.environ.copy()
-IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
+IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,7 +24,7 @@ IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if IN_PRODUCTION:
-    SECRET_KEY = os.getenviron('DJANGO_SECRET_KEY', None)
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = False
 else:
     DEBUG = True

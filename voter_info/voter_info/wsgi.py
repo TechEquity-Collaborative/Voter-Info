@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "voter_info.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "voter_info.voter_info.settings")
 
 application = get_wsgi_application()
