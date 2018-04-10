@@ -5,6 +5,15 @@
     "ON_HEROKU": {
       "description": "Shows the app is on Heroku",
       "value": true
+    },
+    "BUILD_WITH_GEO_LIBRARIES": {
+      "value": 1
+    },
+    "GDAL_LIBRARY_PATH": {
+      "value": "/app/.heroku/vendor/lib/libgdal.so"
+    },
+    "GEOS_LIBRARY_PATH": {
+      "value": "/app/.heroku/vendor/lib/libgeos_c.so"
     }
   },
   "stack": "heroku-16",
@@ -18,9 +27,6 @@
     }
   },
   "buildpacks": [
-    {
-      "url": "https://github.com/cyberdelia/heroku-geo-buildpack.git"
-    },
     {
       "url": "heroku/python"
     }
