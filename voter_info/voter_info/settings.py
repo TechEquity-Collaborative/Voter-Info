@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = os.environ.copy()
-ON_HEROKU = os.getenv('ON_HEROKU', False)
+ON_HEROKU = os.getenv('DYNO', False)
 IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
 
 
