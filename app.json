@@ -8,7 +8,7 @@
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/mojodna/heroku-buildpack-gdal.git"
+      "url": "https://github.com/cyberdelia/heroku-geo-buildpack.git"
     }
   ]
 }
