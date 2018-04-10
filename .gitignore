@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Node
+frontend/node_modules/*
+
+.vscode
+
 # Distribution / packaging
 .Python
 env/

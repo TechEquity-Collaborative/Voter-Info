@@ -6,5 +6,7 @@
   "addons": [
     "heroku-postgresql"
   ],
-  "buildpacks": []
+  "buildpacks": [
+    "heroku-buildpack-gdal"
+  ]
 }
