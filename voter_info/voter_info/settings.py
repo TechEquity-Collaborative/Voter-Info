@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = os.environ.copy()
+ON_HEROKU = os.getenv('DYNO', False)
 IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
 
 
@@ -116,8 +117,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-
-if IN_PRODUCTION:
+if ON_HEROKU:
     # Configure Django App for Heroku.
     import django_heroku
     django_heroku.settings(locals())
