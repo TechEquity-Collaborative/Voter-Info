@@ -2,10 +2,15 @@
   "name": "Voter-Info",
   "scripts": {},
   "env": {},
-  "formation": {},
   "addons": [
     "heroku-postgresql"
   ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
   "buildpacks": [
     {
       "url": "https://github.com/cyberdelia/heroku-geo-buildpack.git"
