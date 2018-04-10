@@ -2,7 +2,10 @@
   "name": "Voter-Info",
   "scripts": {},
   "env": {
-    "ON_HEROKU": true
+    "ON_HEROKU": {
+      "description": "Shows the app is on Heroku",
+      "value": true
+    }
   },
   "addons": [
     "heroku-postgresql"
