@@ -14,7 +14,7 @@
   "buildpacks": [
     {
       "url": "https://github.com/cyberdelia/heroku-geo-buildpack.git"
-    }
+    },
     {
       "url": "heroku/python"
     }
