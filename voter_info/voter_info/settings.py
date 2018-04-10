@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = os.environ.copy()
-IN_PRODUCTION = os.getenv('HEROKU_APP_ID', False)
+IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 
 
 # Quick-start development settings - unsuitable for production

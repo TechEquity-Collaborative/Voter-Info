@@ -1,7 +1,9 @@
 {
   "name": "Voter-Info",
   "scripts": {},
-  "env": {},
+  "env": {
+    "ON_HEROKU": true
+  },
   "addons": [
     "heroku-postgresql"
   ],
