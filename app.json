@@ -7,7 +7,7 @@
       "value": true
     }
   },
-  "stack": "cedar-14",
+  "stack": "heroku-16",
   "addons": [
     "heroku-postgresql"
   ],
