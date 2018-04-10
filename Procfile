@@ -1,1 +1,1 @@
-web: gunicorn voter_info.wsgi
+web: gunicorn voter_info.voter_info.wsgi
