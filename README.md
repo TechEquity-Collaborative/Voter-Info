@@ -41,8 +41,11 @@ Install:
 
 https://www.postgresql.org/download/
 
+    # e.g. to install with homebrew on macos
+    $ shell> brew install postgresql
+
     # If you installed postgres with homebrew, make sure you start your local postgres server:
-    # brew services start postgresql
+    $ bash> brew services start postgresql
 
 On MacOS Ben Mathes has found homebrew helpful, but the Postgres.app is another option for running postgres with postGIS support.
 
@@ -55,7 +58,14 @@ you cannot install with pip.
 https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/
 
 With homebrew for mac: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/#homebrew
+
 With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/#postgresapp
+
+E.g. with homebrew:
+
+    $ brew install postgis
+    $ brew install gdal
+    $ brew install libgeoip
 
 
 #### Create a database
@@ -101,15 +111,46 @@ now open http://127.0.0.1:8000/ And you should see a web page.
 
 
 
+## Pull Requests and Heroku Builds.
+
+
+Every time you create a PR, heroku will kick off a build to see if it can create
+a server running the version of your PR. You can see the builds here:
+
+https://dashboard.heroku.com/pipelines/514a9ea9-75d3-4056-81cc-24b8aebd5592
+
+
+
+
+
 ## Deployment Guide
 
 TODO (coming).
 
-# SET HEROKU CONFIG VARIABLE FOR SECRET KEY. STORE WHERE?
-
-# PUSH TO HEROKU? HEROKU MASTER?
-
-# HEROKU COMMAND LINE FOR TEC ACCOUNT, NOT PERSONAL
-
 install the heroku command line:
 https://devcenter.heroku.com/articles/heroku-command-line
+
+Then follow the guide to get started: https://devcenter.heroku.com/articles/heroku-cli#getting-started
+
+    $ shell> heroku login
+
+    # confirm your login is part of the TEC:
+    $ shell> heroku teams
+    techequity
+    $ shell> heroku apps --team techequity
+    === Apps in team techequity
+    voter-info
+    voter-info-pr-15
+    ...
+
+
+The Heroku CLI defaults to your personal account and requires the --team flag when
+performing team actions. If you generally work under an organization, you can set
+the HEROKU_ORGANIZATION environment variable in order to default to that organization.
+
+    $ bash> export HEROKU_ORGANIZATION=techequity
+    $ bash> heroku apps
+    === Apps in team techequity
+    voter-info
+    voter-info-pr-15
+    ...
