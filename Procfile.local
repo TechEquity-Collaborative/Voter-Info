@@ -1,0 +1,1 @@
+web: python voter_info/manage.py runserver
