@@ -6,10 +6,10 @@
   "env": {
     "ON_HEROKU": {
       "description": "Shows the app is on Heroku",
-      "value": true
+      "value": "true"
     },
     "BUILD_WITH_GEO_LIBRARIES": {
-      "value": 1
+      "value": "1"
     },
     "GDAL_LIBRARY_PATH": {
       "value": "/app/.heroku/vendor/lib/libgdal.so"
