@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'voter_info',
+    'api_backend',
 ]
 
 MIDDLEWARE = [
@@ -55,11 +55,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'voter_info.urls'
+ROOT_URLCONF = 'api_backend.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'api_backend': 'django.template.api_backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'voter_info.wsgi.application'
+WSGI_APPLICATION = 'api_backend.wsgi.application'
 
 
 
@@ -124,12 +124,12 @@ if IN_PRODUCTION:
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
-    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.api_backends.postgis'
 else:
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.backends.postgresql',
+            'ENGINE': 'django.contrib.gis.db.api_backends.postgis', #'django.db.api_backends.postgresql',
             'NAME': 'voter_info_dev',
             'HOST': '127.0.0.1',
             'PORT': '5432',
