@@ -92,7 +92,13 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
 ## Run your local dev server
 
-    $ foreman run -f Procfile.local
+    # Since this is a Procfile based app we'll use Foreman
+    # to manage processes
+    # https://github.com/ddollar/foreman
+    $ gem install foreman
+
+    # To run your dev server use
+    $ foreman run -f $git_root/Procfile.local
     ...
     Starting development server at http://127.0.0.1:8000/
 
