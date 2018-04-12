@@ -41,7 +41,7 @@ function getServedPath(appPackageJson) {
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
-  appBuild: resolveApp('./frontend/build'),
+  appBuild: resolveApp('./voter_info/staticfiles/reactapp'),
   appPublic: resolveApp('./frontend/public'),
   appHtml: resolveApp('./frontend/public/index.html'),
   appIndexJs: resolveApp('./frontend/src/index.js'),
