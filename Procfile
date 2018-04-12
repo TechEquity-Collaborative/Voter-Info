@@ -1,1 +1,1 @@
-web: sh -c 'cd ./voter_info/ && exec gunicorn api_backend.wsgi --log-file -'
+web: sh -c 'cd ./voter_info/ && exec gunicorn voter_info.wsgi --log-file -'

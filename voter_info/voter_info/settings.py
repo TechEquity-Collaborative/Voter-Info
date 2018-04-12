@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'api_backend',
+    'voter_info',
 ]
 
 MIDDLEWARE = [
@@ -55,11 +55,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'api_backend.urls'
+ROOT_URLCONF = 'voter_info.urls'
 
 TEMPLATES = [
     {
-        'api_backend': 'django.template.api_backends.django.DjangoTemplates',
+        'voter_info': 'django.template.voter_infos.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'api_backend.wsgi.application'
+WSGI_APPLICATION = 'voter_info.wsgi.application'
 
 
 
@@ -129,7 +129,7 @@ else:
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.api_backends.postgresql',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.voter_infos.postgresql',
             'NAME': 'voter_info_dev',
             'HOST': '127.0.0.1',
             'PORT': '5432',
