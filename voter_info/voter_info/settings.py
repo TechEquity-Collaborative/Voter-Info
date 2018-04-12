@@ -59,7 +59,7 @@ ROOT_URLCONF = 'voter_info.urls'
 
 TEMPLATES = [
     {
-        'voter_info': 'django.template.voter_infos.django.DjangoTemplates',
+        'voter_info': 'django.template.voter_info.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -129,7 +129,7 @@ else:
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.voter_infos.postgresql',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.voter_info.postgresql',
             'NAME': 'voter_info_dev',
             'HOST': '127.0.0.1',
             'PORT': '5432',
