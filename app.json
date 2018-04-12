@@ -1,6 +1,8 @@
 {
   "name": "Voter-Info",
-  "scripts": {},
+  "scripts": {
+    "postdeploy": "python voter_info.manage.py migrate --noinput"
+  },
   "env": {
     "ON_HEROKU": {
       "description": "Shows the app is on Heroku",
@@ -14,6 +16,9 @@
     },
     "GEOS_LIBRARY_PATH": {
       "value": "/app/.heroku/vendor/lib/libgeos_c.so"
+    },
+    "DJANGO_SECRET_KEY": {
+      "generator": "secret"
     }
   },
   "stack": "heroku-16",
