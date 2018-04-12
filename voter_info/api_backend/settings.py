@@ -124,12 +124,12 @@ if IN_PRODUCTION:
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
-    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.api_backends.postgis'
+    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 else:
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.api_backends.postgis', #'django.db.api_backends.postgresql',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.api_backends.postgresql',
             'NAME': 'voter_info_dev',
             'HOST': '127.0.0.1',
             'PORT': '5432',
