@@ -70,7 +70,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     # create your dev user with a password (only for dev, not used in production).
     # if you change the username or password from what is here, be sure to change the 'USER' and 'PASSWORD'
     # values in the DATABASES value in $git_root/voter_info/voter_info/settings.py
-    $ psql> create role voter_info_dev_user with login encrypted password 'super_sekrit_dev_pw_1234'
+    $ psql> create role voter_info_dev_user with login encrypted password 'super_sekrit_dev_pw_1234';
 
     # make sure your database user has access to the dev database:
     $ psql> grant all on database voter_info_dev to voter_info_dev_user;
@@ -86,13 +86,19 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     # TO CREATE YOUR postGIS (geography stuff) EXTENSION:
     $ postgres> alter role voter_info_dev_user SUPERUSER;
     $ shell> python $git_root/voter_info/manage.py migrate
-    $ postgres> alter role voter_info_dev_user NOSUPERUSER
+    $ postgres> alter role voter_info_dev_user NOSUPERUSER;
 
 
 
 ## Run your local dev server
 
-    $ python $git_root/voter_info/manage.py runserver
+    # Since this is a Procfile based app we'll use Foreman
+    # to manage processes
+    # https://github.com/ddollar/foreman
+    $ gem install foreman
+
+    # To run your dev server use
+    $ foreman run -f $git_root/Procfile.local
     ...
     Starting development server at http://127.0.0.1:8000/
 
