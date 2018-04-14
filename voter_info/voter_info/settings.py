@@ -116,9 +116,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'voter_info', 'staticfiles')
 STATIC_URL = '/static/'
 
-REACT_APP_DIR = os.path.join(BASE_DIR, 'voter_info.frontend')
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
 
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static'),
