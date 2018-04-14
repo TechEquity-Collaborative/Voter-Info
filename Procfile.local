@@ -1,1 +1,2 @@
 web: python voter_info/manage.py runserver
+react: sh -c 'cd ./frontend/ && exec yarn start'

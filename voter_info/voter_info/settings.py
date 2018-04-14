@@ -55,6 +55,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if not IN_PRODUCTION:
+    MIDDLEWARE.append('voter_info.middleware.dev_cors_middleware')
+
 ROOT_URLCONF = 'voter_info.urls'
 
 TEMPLATES = [
@@ -115,7 +118,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
 
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
