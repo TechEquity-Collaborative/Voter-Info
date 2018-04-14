@@ -109,7 +109,9 @@ now open http://127.0.0.1:8000/ And you should see a web page.
 
 ## Deployment Guide
 
-TODO (coming).
+    # Before deploying, if you've made any front end changes
+    # make sure you build the react app.
+    $ cd $git_root/voter_info/frontend && yarn build
 
 # SET HEROKU CONFIG VARIABLE FOR SECRET KEY. STORE WHERE?
 
