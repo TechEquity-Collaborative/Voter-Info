@@ -88,7 +88,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     $ shell> python $git_root/voter_info/manage.py migrate
     $ postgres> alter role voter_info_dev_user NOSUPERUSER;
 
-### Setup the frontend and it's depenencies:
+## Frontend:
 
     # We'll use yarn for package management
     # the yarn installer will also install node if
@@ -132,19 +132,13 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
     # To run your dev server use
     $ foreman run -f $git_root/Procfile.local
-    ...
-    Starting development server at http://127.0.0.1:8000/
 
 
-now open http://127.0.0.1:8000/ And you should see a web page.
-
-
+Django will run on http://127.0.0.1:8000/
+The react dev server will run on http://127.0.0.1:5000/ (or the next open port) and proxy requests to Django
 
 ## Deployment Guide
 
-    # Before deploying, if you've made any front end changes
-    # make sure you build the react app.
-    $ cd $git_root/voter_info/frontend && yarn build
 
 # SET HEROKU CONFIG VARIABLE FOR SECRET KEY. STORE WHERE?
 
