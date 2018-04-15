@@ -90,9 +90,10 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
 ### Setup the frontend and it's depenencies:
 
-    # Install node if you don't have it currently.
-    # we'll also install yarn for package management
-    $ brew install node yarn
+    # We'll use yarn for package management
+    # the yarn installer will also install node if
+    # it doesn't find it.
+    $ brew install yarn
 
     # You will probably want a node version manager if you don't already have one.
     # @ericsandine recommends `n`
@@ -104,9 +105,9 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     $ n 9.5.0
 
     # Now install the current dependencies
-    $ npm install
+    $ yarn install
 
-    # To install a new package us
+    # To install a new package use
     $ yarn add <some-some-awesome-package>
 
 ## Run your local dev server
