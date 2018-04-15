@@ -91,12 +91,12 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 ### Setup the frontend and it's depenencies:
 
     # Install node if you don't have it currently.
-    $ brew install node
+    # we'll also install yarn for package management
+    $ brew install node yarn
 
     # You will probably want a node version manager if you don't already have one.
     # @ericsandine recommends `n`
-    # we'll also install yarn for package handling
-    $ npm install -g n yarn
+    $ npm install -g n
 
     # Then install the production version of Node
     # This command will install it and switch to the version
