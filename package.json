@@ -53,7 +53,7 @@
     "start": "node frontend/scripts/start.js",
     "build": "node frontend/scripts/build.js",
     "test": "node frontend/scripts/test.js --env=jsdom",
-    "heroku-postbuild": "yarn run frontend/scripts/build.js"
+    "heroku-postbuild": "yarn run build"
   },
   "jest": {
     "collectCoverageFrom": [
