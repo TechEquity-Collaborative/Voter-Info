@@ -88,13 +88,41 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     $ shell> python $git_root/voter_info/manage.py migrate
     $ postgres> alter role voter_info_dev_user NOSUPERUSER;
 
+### Setup the frontend and it's depenencies:
 
+    # Install node if you don't have it currently.
+    $ brew install node
+
+    # You will probably want a node version manager if you don't already have one.
+    # @ericsandine recommends `n`
+    $ npm install -g n
+
+    # Then install the production version of Node
+    # This command will install it and switch to the version
+    # You can swap versions by using `n` if needed
+    $ n 9.5.0
+
+    # Now install the current dependencies
+    $ npm install
 
 ## Run your local dev server
 
     # Since this is a Procfile based app we'll use Foreman
     # to manage processes
     # https://github.com/ddollar/foreman
+
+    # Check to see if you have a version of ruby installed
+    # if you do, skip to installing the gem
+    # You may also want to install RVM anyway.
+    $ ruby -v
+
+    # Install RVM and Ruby
+    # This will install RVM (a Ruby version manager)
+    # and the current stable version of Ruby
+    # https://rvm.io/rvm/install
+    $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+    # Install the foreman Gem
     $ gem install foreman
 
     # To run your dev server use
