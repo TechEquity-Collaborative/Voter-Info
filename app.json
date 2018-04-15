@@ -39,7 +39,7 @@
       "url": "heroku/python"
     },
     {
-      "url": "heroku/node"
+      "url": "heroku/nodejs"
     }
   ]
 }
