@@ -6,6 +6,7 @@
     "yarn": "1.4.0"
   },
   "private": true,
+  "homepage": "/static/",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
