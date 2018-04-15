@@ -95,7 +95,8 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
     # You will probably want a node version manager if you don't already have one.
     # @ericsandine recommends `n`
-    $ npm install -g n
+    # we'll also install yarn for package handling
+    $ npm install -g n yarn
 
     # Then install the production version of Node
     # This command will install it and switch to the version
@@ -104,6 +105,9 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
     # Now install the current dependencies
     $ npm install
+
+    # To install a new package us
+    $ yarn add <some-some-awesome-package>
 
 ## Run your local dev server
 
