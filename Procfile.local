@@ -1,0 +1,2 @@
+web: python voter_info/manage.py runserver
+react: npm start
