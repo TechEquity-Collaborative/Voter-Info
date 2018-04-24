@@ -1,2 +1,2 @@
-web: python voter_info/manage.py runserver
+web: PYTHONUNBUFFERED=true python voter_info/manage.py runserver
 react: npm start
