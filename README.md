@@ -102,6 +102,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     # Then install the production version of Node
     # This command will install it and switch to the version
     # You can swap versions by using `n` if needed
+    # (this may require sudo)
     $ n 9.5.0
 
     # Now install the current dependencies
@@ -129,6 +130,9 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
     # Install the foreman Gem
     $ gem install foreman
+    # if you are getting errors about openSSL, reinstall ruby, telling it where to look for openssl
+    # read more here: https://stackoverflow.com/a/42235933
+    $ rvm reinstall 2.4.0 --with-openssl-dir=`brew --prefix openssl`
 
     # To run your dev server use
     $ foreman run -f $git_root/Procfile.local
