@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = os.environ.copy()
-IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
+IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,7 +24,7 @@ IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if IN_PRODUCTION:
-    SECRET_KEY = os.getenviron('DJANGO_SECRET_KEY', None)
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = False
 else:
     DEBUG = True
@@ -54,6 +54,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if not IN_PRODUCTION:
+    MIDDLEWARE.append('voter_info.middleware.dev_cors_middleware')
 
 ROOT_URLCONF = 'voter_info.urls'
 
@@ -113,9 +116,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.

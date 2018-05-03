@@ -70,7 +70,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     # create your dev user with a password (only for dev, not used in production).
     # if you change the username or password from what is here, be sure to change the 'USER' and 'PASSWORD'
     # values in the DATABASES value in $git_root/voter_info/voter_info/settings.py
-    $ psql> create role voter_info_dev_user with login encrypted password 'super_sekrit_dev_pw_1234'
+    $ psql> create role voter_info_dev_user with login encrypted password 'super_sekrit_dev_pw_1234';
 
     # make sure your database user has access to the dev database:
     $ psql> grant all on database voter_info_dev to voter_info_dev_user;
@@ -86,24 +86,59 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     # TO CREATE YOUR postGIS (geography stuff) EXTENSION:
     $ postgres> alter role voter_info_dev_user SUPERUSER;
     $ shell> python $git_root/voter_info/manage.py migrate
-    $ postgres> alter role voter_info_dev_user NOSUPERUSER
+    $ postgres> alter role voter_info_dev_user NOSUPERUSER;
 
+## Frontend:
 
+    # We'll use yarn for package management
+    # the yarn installer will also install node if
+    # it doesn't find it.
+    $ brew install yarn
+
+    # You will probably want a node version manager if you don't already have one.
+    # @ericsandine recommends `n`
+    $ npm install -g n
+
+    # Then install the production version of Node
+    # This command will install it and switch to the version
+    # You can swap versions by using `n` if needed
+    $ n 9.5.0
+
+    # Now install the current dependencies
+    $ yarn install
+
+    # To install a new package use
+    $ yarn add <some-some-awesome-package>
 
 ## Run your local dev server
 
-    $ shell> python $git_root/voter_info/manage.py runserver
-    ...
-    Starting development server at http://127.0.0.1:8000/
+    # Since this is a Procfile based app we'll use Foreman
+    # to manage processes
+    # https://github.com/ddollar/foreman
+
+    # Check to see if you have a version of ruby installed
+    # if you do, skip to installing the gem
+    # You may also want to install RVM anyway.
+    $ ruby -v
+
+    # Install RVM and Ruby
+    # This will install RVM (a Ruby version manager)
+    # and the current stable version of Ruby
+    # https://rvm.io/rvm/install
+    $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+    # Install the foreman Gem
+    $ gem install foreman
+
+    # To run your dev server use
+    $ foreman run -f $git_root/Procfile.local
 
 
-now open http://127.0.0.1:8000/ And you should see a web page.
-
-
+Django will run on http://127.0.0.1:8000/
+The react dev server will run on http://127.0.0.1:5000/ (or the next open port) and proxy requests to Django
 
 ## Deployment Guide
 
-TODO (coming).
 
 * SET HEROKU CONFIG VARIABLE FOR SECRET KEY. STORE WHERE?
 * PUSH TO HEROKU? HEROKU MASTER?
