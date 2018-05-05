@@ -4,6 +4,12 @@ class District(models.Model):
     # Regular Django fields corresponding to the attributes in the
     # world borders shapefile.
     name = models.CharField(max_length=50)
+
+    # from data_source.layer.fields. Make these all model fields?
+    'shape_stle', 'dist_name', 'shape_star', 'district_i'
+
+    # and remove these(https://docs.djangoproject.com/en/2.0/ref/contrib/gis/layermapping/)
+
     area = models.IntegerField()
     pop2005 = models.IntegerField('Population 2005')
     fips = models.CharField('FIPS Code', max_length=2)
