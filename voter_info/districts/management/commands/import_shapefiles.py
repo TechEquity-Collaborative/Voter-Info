@@ -33,6 +33,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         shape_file_path = f'{WORLD_APP_DATA_DIRECTORY}/shape_files/{SHAPE_FILE_NAME}'
         data_source = DataSource(shape_file_path)
+        # TODO(benmathes): this layer mapping is failing. The django_model_to_shapefile_key
+        # is from the geoDjango tutorial, which comes with its own shapefile. Perhaps the
+        # mapping is peculiar to each shapefile?
+        # https://docs.djangoproject.com/en/2.0/ref/contrib/gis/layermapping/
         layer_mapping = LayerMapping(
             District,
             shape_file_path,
