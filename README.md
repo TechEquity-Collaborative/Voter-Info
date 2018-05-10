@@ -131,7 +131,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     $ gem install foreman
 
     # To run your dev server use
-    $ foreman run -f $git_root/Procfile.local
+    $ foreman start -f $git_root/Procfile.local
 
 
 Django will run on http://127.0.0.1:8000/
