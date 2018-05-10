@@ -16,6 +16,10 @@ class District(models.Model):
     shape_file_name = models.TextField()
 
 
+    @classmethod
+    def contains_point(cls, lat, lon):
+        return cls.objects.filter(areas__mpoly__contains=GEOSGeometry(f'POINT({lat} {lon})')).distinct('id')
+
 
 # a custom queryset and manager to be able to write:
 # Area.objects.contains_point(lat, lon) -> QuerySet[ <Area 1>, <Area 2>,... ]
@@ -40,7 +44,15 @@ class Area(models.Model):
     """
     objects = AreaManager()
 
-    district = models.ForeignKey(District, on_delete=django.db.models.deletion.CASCADE, related_name='areas')
+    district = models.ForeignKey(
+        District,
+        on_delete=django.db.models.deletion.CASCADE,
+        related_name='areas',
+        # not actually allowed to be true, but the GEODJango
+        # libraries create Area instances before we can set the
+        # foreign key
+        null=True
+    )
 
     name = models.CharField(max_length=50)
 

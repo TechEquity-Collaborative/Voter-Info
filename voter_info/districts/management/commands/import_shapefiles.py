@@ -1,12 +1,13 @@
 import os
 from pathlib import Path
 
+from django.db import transaction
 from django.core.management import BaseCommand
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.utils import LayerMapping
 
 import districts
-from districts.models import District
+from districts.models import District, Area
 
 DISTRICTS_APP_DIRECTORY = os.path.abspath(os.path.join(os.path.dirname(districts.__file__)))
 
@@ -23,26 +24,40 @@ django_model_to_shapefile_key = {
 # 4: try to ignore the "schema" of the shapefiles. just a name will do.
 
 class Command(BaseCommand):
-    help = "idempotently imports all shapefiles in voter_info/districts/shapefiles/"
+    help = "idempotently imports all shapefiles like voter_info/districts/shape_files/$districtName/shapefile.shp"
 
+    @transaction.atomic
     def handle(self, *args, **options):
         shape_file_path = {SHAPE_FILE_NAME}
 
-
         pathlist = Path(f'{DISTRICTS_APP_DIRECTORY}/shape_files/').glob('**/*.shp')
-        import pdb; pdb.set_trace()
+        already_connected_area_ids = set()
         for shape_file_path in pathlist:
-            data_source = DataSource('/'.join(shape_file_path.parts))
+            full_path = '/'.join(shape_file_path.parts)
+            data_source = DataSource(full_path)
+            # path is .../districts/shape_files/$districtName/_some_geo_export_file.shp
+            district_name = shape_file_path.parts[-2]
+            district, created = District.objects.get_or_create(name=district_name)
+            if not created:
+                print(f'"{district_name}" already imported')
+                continue
+            else:
+                print(f'importing "{district_name}"')
 
-            # TODO(benmathes): this layer mapping is failing. The django_model_to_shapefile_key
-            # is from the geoDjango tutorial, which comes with its own shapefile. Perhaps the
-            # mapping is peculiar to each shapefile?
-            # https://docs.djangoproject.com/en/2.0/ref/contrib/gis/layermapping/
             layer_mapping = LayerMapping(
                 Area,
-                shape_file_path,
+                full_path,
                 django_model_to_shapefile_key,
                 transform=False,
                 encoding='iso-8859-1',
             )
-            layer_mapping.save(strict=True, verbose=True)
+            layer_mapping.save(strict=True)
+
+            # TODO(benmathes): figure out a way to get the Area instances created from the layer_mapping
+            # currently not supported: http://grokbase.com/t/gg/django-updates/125qmmyy7j/django-18368-layermapping-save-should-be-able-to-set-attributes-on-created-model-instances
+            areas_to_save_to_district = Area.objects.exclude(id__in=already_connected_area_ids)
+            for area in areas_to_save_to_district.all():
+                area.district = district
+                area.save()
+                already_connected_area_ids.add(area.id)
+            assert(Area.objects.filter(district_id__isnull=True).count() == 0)
