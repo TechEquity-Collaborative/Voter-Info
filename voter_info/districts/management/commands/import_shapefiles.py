@@ -1,5 +1,8 @@
 import os
-from pathlib import Path
+import csv
+from io import BytesIO
+from zipfile import ZipFile
+from urllib.request import urlopen
 
 from django.db import transaction
 from django.core.management import BaseCommand
@@ -11,10 +14,10 @@ from districts.models import District, Area
 
 DISTRICTS_APP_DIRECTORY = os.path.abspath(os.path.join(os.path.dirname(districts.__file__)))
 
-SHAPE_FILE_NAME = 'geo_export_d7286284-cf00-4f7f-bb87-739e415712fe.shp'# 'geo_export_efa8ecd8-3d0c-424b-bf93-d52b75f0e330.shp'
+CSV_SHAPE_FILE_NAME = 'Bay Area Elected Offices - District Boundary File Links.csv'
 
 django_model_to_shapefile_key = {
-    'mpoly' : 'MULTIPOLYGON',
+    'mpoly': 'MULTIPOLYGON',
 }
 
 
@@ -24,12 +27,34 @@ django_model_to_shapefile_key = {
 # 4: try to ignore the "schema" of the shapefiles. just a name will do.
 
 class Command(BaseCommand):
-    help = "idempotently imports all shapefiles like voter_info/districts/shape_files/$districtName/shapefile.shp"
+    help = "idempotently imports all shapefiles linked to by voter_info/districts/{CSV_SHAPE_FILE_NAME}"
 
     @transaction.atomic
     def handle(self, *args, **options):
-        shape_file_path = {SHAPE_FILE_NAME}
 
+        self.download_shapefiles_from_csv()
+
+        self.extract_shapefiles_into_database()
+
+    def download_shapefiles_from_csv(self):
+        csv_with_positions_and_districts = f'{DISTRICTS_APP_DIRECTORY}/{CSV_SHAPE_FILE_NAME}'
+
+        with open(csv_with_positions_and_districts) as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                jurisdiction = row['Jurisdiction Level']
+                office = row['Office']
+                shapefile_archive_download_link = row['linkurl']
+                response = urlopen(shapefile_archive_download_link)
+                # make a directory in voter_info/districts/shape_files/$jurisdiction/$offfice/
+                zipfile = ZipFile(BytesIO(resp.read()))
+
+                # extracts to current working directory. make it extract to the newly created directory
+                zipfile.extractall()
+
+
+    def extract_shapefile_into_database(self, path):
+        # iterate over every directory in districts/shape_files/$jurisidiction/$office/
         pathlist = Path(f'{DISTRICTS_APP_DIRECTORY}/shape_files/').glob('**/*.shp')
         already_connected_area_ids = set()
         for shape_file_path in pathlist:
