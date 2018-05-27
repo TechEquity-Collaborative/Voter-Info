@@ -15,7 +15,6 @@ class District(models.Model):
 
     shape_file_name = models.TextField()
 
-
     @classmethod
     def contains_point(cls, lat, lon):
         return cls.objects.filter(areas__mpoly__contains=GEOSGeometry(f'POINT({lat} {lon})')).distinct('id')
@@ -66,11 +65,6 @@ class Area(models.Model):
 
     # GeoDjango-specific: a geometry field (MultiPolygonField)
     mpoly = models.MultiPolygonField()
-
-
-
-
-
 
 
 # TODO(benmathes): if the district shapefiles have different schemas (e.g. model fields are custom
