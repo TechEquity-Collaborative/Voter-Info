@@ -103,7 +103,8 @@ class Command(BaseCommand):
             )
             layer_mapping.save(strict=True)
 
-            # currently not supported: http://grokbase.com/t/gg/django-updates/125qmmyy7j/django-18368-layermapping-save-should-be-able-to-set-attributes-on-created-model-instances
+            # TODO(benmathes): Tie the district's to the office (part of a different PR)
+
             areas_to_save_to_district = Area.objects.exclude(id__in=already_connected_area_ids)
             for area in areas_to_save_to_district.all():
                 area.district = district
