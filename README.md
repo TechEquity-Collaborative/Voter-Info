@@ -148,3 +148,10 @@ The react dev server will run on http://127.0.0.1:5000/ (or the next open port) 
 
 install the heroku command line:
 https://devcenter.heroku.com/articles/heroku-command-line
+
+
+
+## Import Shapefiles to the Postgres Database
+
+    # run the custom manage.py command:
+    & shell> python $git_root/voter_info/manage.py import_shapefiles
