@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # our libs
     'voter_info',
     'districts',
-    'offices'
+    'offices',
 ]
 
 MIDDLEWARE = [
