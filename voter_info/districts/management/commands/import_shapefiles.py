@@ -2,7 +2,6 @@ import os
 import csv
 import shutil
 from urllib.request import urlopen
-from urllib.error import HTTPError
 from io import BytesIO
 from zipfile import ZipFile, BadZipFile
 from pathlib import Path
@@ -13,12 +12,13 @@ from django.contrib.gis.utils import LayerMapping
 
 import districts
 from districts.models import District, Area
+from offices.models import Office
 
 DISTRICTS_APP_DIRECTORY = os.path.abspath(os.path.join(os.path.dirname(districts.__file__)))
 
 OFFICE_TO_SHAPEFILE_URLS_CSV_FILENAME = 'Bay Area Elected Offices - District Boundary File Links.csv'
 
-django_model_to_shapefile_key = {
+DJANGO_MODEL_TO_SHAPEFILE_KEY = {
     'mpoly': 'MULTIPOLYGON',
 }
 
@@ -51,7 +51,7 @@ class Command(BaseCommand):
                 print(f"Getting shapefiles for {district} - {office}")
                 try:
                     response = urlopen(shapefile_archive_download_link)
-                except HTTPError as e:
+                except Exception as e:
                     print(f"    error downloading from {shapefile_archive_download_link}: {e}")
 
                 # make a directory in voter_info/districts/shape_files/$district/$offfice/
@@ -72,10 +72,12 @@ class Command(BaseCommand):
                 print(f"    extracting to {relative_path}")
                 zipfile.extractall(target_extraction_path)
 
+                return
+
     def extract_shapefiles_into_database(self):
         # iterate over every directory in districts/shape_files/$jurisidiction/$office/
         pathlist = Path(f'{DISTRICTS_APP_DIRECTORY}/shape_files/').glob('**/*.shp')
-        already_connected_area_ids = set()
+        self.already_connected_area_ids = set()
         for shape_file_path in pathlist:
             full_path = '/'.join(shape_file_path.parts)
 
@@ -89,25 +91,30 @@ class Command(BaseCommand):
 
             district, created = District.objects.get_or_create(name=district_name)
             if not created:
-                print(f'"{district_name}" already imported')
-                continue
+                print(f'district "{district_name}" already imported')
             else:
-                print(f'importing "{district_name}"')
+                self.create_areas_and_districts(district, full_path)
 
-            layer_mapping = LayerMapping(
-                Area,
-                full_path,
-                django_model_to_shapefile_key,
-                transform=False,
-                encoding='iso-8859-1',
-            )
-            layer_mapping.save(strict=True)
+            self.create_offices_for_districts(district, office_name)
 
-            # TODO(benmathes): Tie the district's to the office (part of a different PR)
+    def create_areas_and_districts(self, district, full_path):
+        print(f'importing district: "{district.name}"')
+        layer_mapping = LayerMapping(
+            Area,
+            full_path,
+            DJANGO_MODEL_TO_SHAPEFILE_KEY,
+            transform=False,
+            encoding='iso-8859-1',
+        )
+        layer_mapping.save(strict=True)
 
-            areas_to_save_to_district = Area.objects.exclude(id__in=already_connected_area_ids)
-            for area in areas_to_save_to_district.all():
-                area.district = district
-                area.save()
-                already_connected_area_ids.add(area.id)
-            assert(Area.objects.filter(district_id__isnull=True).count() == 0)
+        areas_to_save_to_district = Area.objects.exclude(id__in=self.already_connected_area_ids)
+        for area in areas_to_save_to_district.all():
+            area.district = district
+            area.save()
+            self.already_connected_area_ids.add(area.id)
+        assert(Area.objects.filter(district_id__isnull=True).count() == 0)
+
+    def create_offices_for_districts(self, district, office_name):
+        office_for_district, was_created = Office.objects.get_or_create(name=office_name, district=district)
+        print(f'created office: {office_for_district} for district: {district}')
