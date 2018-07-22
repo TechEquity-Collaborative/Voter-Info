@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'voter_info',
     'districts',
-    'offices'
+    'offices',
 ]
 
 MIDDLEWARE = [
