@@ -11,7 +11,7 @@ class Office(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=False, related_name='offices')
 
     def __str__(self):
-        return f'<Office id={self.id} name="{self.name}" district="{self.district.name}" district_id={self.district.id})>'
+        return f'<Office id={self.id} name="{self.name}" district="{self.district.name}" district_id={self.district.id}>'
 
 
 class Candidate(models.Model):
