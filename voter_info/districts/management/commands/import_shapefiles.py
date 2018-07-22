@@ -99,6 +99,8 @@ class Command(BaseCommand):
 
     def create_areas_and_districts(self, district, full_path):
         print(f'importing district: "{district.name}"')
+        district.shape_file_name = full_path
+        district.save()
         layer_mapping = LayerMapping(
             Area,
             full_path,

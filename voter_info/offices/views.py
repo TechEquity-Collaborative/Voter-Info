@@ -1,6 +1,4 @@
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
-from rest_framework.response import Response
 
 from offices.models import Office, Candidate
 from offices.serializers import OfficeSerializer, CandidateSerializer
@@ -16,3 +14,5 @@ class OfficeViewSet(viewsets.ModelViewSet):
 class CandidateViewSet(viewsets.ModelViewSet):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
+
+    http_method_names = ['get']

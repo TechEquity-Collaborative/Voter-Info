@@ -6,10 +6,14 @@ from rest_framework import routers
 from . import views
 
 admin.autodiscover()
+
+# this namespaces URLS in this django app...
 app_name = 'offices'
 
 router = routers.DefaultRouter()
-router.register(r'offices', views.OfficeViewSet)
+# ... so this will be /offices/ -> JSON list of offices
+router.register(r'', views.OfficeViewSet)
+# ... and this will be /offices/candidates -> JSON list of candidates
 router.register(r'candidates', views.CandidateViewSet)
 
 urlpatterns = [
