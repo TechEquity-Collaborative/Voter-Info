@@ -14,6 +14,7 @@ class Office(models.Model):
         return f'<Office id={self.id} name="{self.name}" district="{self.district.name}" district_id={self.district.id}>'
 
 
+
 class Candidate(models.Model):
     class Meta:
         unique_together = (

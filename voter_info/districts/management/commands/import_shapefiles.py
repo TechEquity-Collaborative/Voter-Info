@@ -100,6 +100,7 @@ class Command(BaseCommand):
         print(f'importing district: "{district.name}"')
         district.shape_file_name = full_path
         district.save()
+
         layer_mapping = LayerMapping(
             Area,
             full_path,

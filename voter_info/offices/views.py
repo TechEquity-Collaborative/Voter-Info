@@ -16,3 +16,4 @@ class CandidateViewSet(viewsets.ModelViewSet):
     serializer_class = CandidateSerializer
 
     http_method_names = ['get']
+
