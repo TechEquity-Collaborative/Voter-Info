@@ -18,7 +18,8 @@ from django.urls import path
 from django.conf.urls import url
 from . import views
 
+admin.autodiscover()
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', views.FrontendAppView.as_view()),
+    url(r'^$', views.FrontendAppView.as_view()),
 ]
