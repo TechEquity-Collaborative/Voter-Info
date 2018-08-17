@@ -15,6 +15,9 @@ class District(models.Model):
 
     shape_file_name = models.TextField()
 
+    def __repr__(self):
+        return f'<District id={self.id} name={self.name}>'
+
     @classmethod
     def contains_point(cls, lat, lon):
         return cls.objects.filter(areas__mpoly__contains=GEOSGeometry(f'POINT({lat} {lon})')).distinct('id')
@@ -38,8 +41,9 @@ class AreaManager(models.Manager):
 class Area(models.Model):
     """
     A geographic area. The external shape files we are using
-    have many areas within an office's district can have many areas, e.g.
-    a city-wide compaign can
+    have many areas within an office's district, e.g.
+    a city-wide compaign can have multiple geographic areas for a
+    given district (e.g. the whole city)
     """
     objects = AreaManager()
 
@@ -65,6 +69,9 @@ class Area(models.Model):
 
     # GeoDjango-specific: a geometry field (MultiPolygonField)
     mpoly = models.MultiPolygonField()
+
+    def __repr__(self):
+        return f'<Area id={self.id} name={self.name} district={self.district}>'
 
 
 # TODO(benmathes): if the district shapefiles have different schemas (e.g. model fields are custom
