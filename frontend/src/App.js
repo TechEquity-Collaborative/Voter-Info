@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SearchBar from './SearchBar'
-import Result from './Result'
+import RepresentativeRow from './RepresentativeRow'
 import {Jumbotron, Row, Col, Grid} from 'react-bootstrap'
 import './App.css';
 import scrollToComponent from 'react-scroll-to-component';
@@ -19,7 +19,6 @@ class App extends Component {
       address,
       results: ['hey', 'sup', 'yo', lat, long]
     }, () => scrollToComponent(this.resultsRow, {align: 'top'}))
-    console.log(address, lat, long)
   }
 
   render() {
@@ -49,8 +48,8 @@ class App extends Component {
               {this
                 .state
                 .results
-                .map((r, i) => {
-                  return <Result key={i} data={r}/>
+                .map((representative, i) => {
+                  return <RepresentativeRow key={i} data={representative}/>
                 })}
             </Col>
           </Row>

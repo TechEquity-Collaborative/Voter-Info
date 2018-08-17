@@ -1,7 +1,7 @@
 import React from 'react'
 import {Row, Col, Image} from 'react-bootstrap';
 
-let Result = (props) => {
+let RepresentativeRow = (props) => {
   return (
     <Row className='result'>
       <Col xs={7}>
@@ -16,4 +16,4 @@ let Result = (props) => {
   )
 }
 
-export default Result;
+export default RepresentativeRow;
