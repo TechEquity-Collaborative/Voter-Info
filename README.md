@@ -8,30 +8,30 @@ Install:
 
     # install pyenv, a tool for managing python versions, e.g. on mac with homebrew
     # (more info here: https://github.com/pyenv/pyenv)
-    $ brew install pyenv
-    $ brew install pyenv-virtualenv
+    $ shell> brew install pyenv
+    $ shell> brew install pyenv-virtualenv
 
     # Use pyenv to install the version of Python that you want (heroku runs on 3.6.4)
-    $ pyenv install 3.6.4
+    $ shell> pyenv install 3.6.4
 
     # Create a virtualenv for voter_info
-    $ pyenv virtualenv 3.6.4 voter_info
+    $ shell> pyenv virtualenv 3.6.4 voter_info
 
     # Activate virtualenv
-    $ pyenv activate voter_info
+    $ shell> pyenv activate voter_info
 
     # (Optional) Set this as default env for this directory so whenever you're in this dir, you use this virtualenv
-    $ pyenv local voter_info
+    $ shell> pyenv local voter_info
 
     # Confirm you are running the right python:
-    $ which python
+    $ shell> which python
      .../.pyenv/shims/python
 
-    $ python --version
+    $ shell> python --version
     Python 3.6.4
 
     # Install requirements
-    $ pip install -r requirements.txt
+    $ shell> pip install -r requirements.txt
 
 
 
@@ -71,23 +71,23 @@ E.g. with homebrew:
 #### Create a database
 
     # Create a database provisioned to your user account
-    $ createdb voter_info_dev
+    $ shell> createdb voter_info_dev
 
     # create the voter_info_dev database user and grant it permissions on the voter_info_dev DB:
     # connect to the voter_info_dev database in postgres:
-    $ psql voter_info_dev
+    $ shell> psql voter_info_dev
 
     # create your dev user with a password (only for dev, not used in production).
     # if you change the username or password from what is here, be sure to change the 'USER' and 'PASSWORD'
     # values in the DATABASES value in $git_root/voter_info/voter_info/settings.py
-    $ psql> create role voter_info_dev_user with login encrypted password 'super_sekrit_dev_pw_1234'
+    $ psql> create role voter_info_dev_user with login encrypted password 'super_sekrit_dev_pw_1234';
 
     # make sure your database user has access to the dev database:
     $ psql> grant all on database voter_info_dev to voter_info_dev_user;
 
 #### Check that django can connect to your dev database:
 
-    $ python $git_root/voter_info/manage.py dbshell
+    $ shell> python $git_root/voter_info/manage.py dbshell
 
 #### Run all migrations to create your database schema:
 
@@ -96,18 +96,46 @@ E.g. with homebrew:
     # TO CREATE YOUR postGIS (geography stuff) EXTENSION:
     $ postgres> alter role voter_info_dev_user SUPERUSER;
     $ shell> python $git_root/voter_info/manage.py migrate
-    $ postgres> alter role voter_info_dev_user NOSUPERUSER
+    $ postgres> alter role voter_info_dev_user NOSUPERUSER;
 
+#### Import Shapefiles to the Postgres Database
 
+    # run the custom manage.py command:
+    & shell> python $git_root/voter_info/manage.py import_shapefiles
+
+## Frontend:
+
+    # We'll use yarn for package management. The yarn installer will also install node if
+    # it doesn't find it.
+    $ brew install yarn
+
+    # You will probably want a node version manager if you don't already have one.
+    # @ericsandine recommends `n`
+    $ npm install -g n
+
+    # Then install the production version of Node
+    # This command will install it and switch to the version
+    # You can swap versions by using `n` if needed
+    $ n 10.9.0
+
+    # Now install the current dependencies
+    $ yarn install
+
+    # To install a new package use
+    $ yarn add <some-some-awesome-package>
 
 ## Run your local dev server
 
-    $ python $git_root/voter_info/manage.py runserver
-    ...
-    Starting development server at http://127.0.0.1:8000/
+    # don't forget to have the heroku CLI installed
+    $ shell> npm install -g heroku
+
+    # To run your dev server use heroku, which is compatible with procfiles
+    # (recall that a procfile is basically a list of commands to run)
+    $ heroku local -f $git_root/Procfile.local
 
 
-now open http://127.0.0.1:8000/ And you should see a web page.
+Django will run on http://127.0.0.1:8000/
+The react dev server will run on http://127.0.0.1:5000/ (or the next open port) and proxy requests to Django
 
 
 
@@ -121,14 +149,13 @@ https://dashboard.heroku.com/pipelines/514a9ea9-75d3-4056-81cc-24b8aebd5592
 
 
 
-
-
 ## Deployment Guide
-
-TODO (coming).
 
 install the heroku command line:
 https://devcenter.heroku.com/articles/heroku-command-line
+
+    # don't forget to have the heroku CLI installed
+    $ shell> npm install -g heroku
 
 Then follow the guide to get started: https://devcenter.heroku.com/articles/heroku-cli#getting-started
 

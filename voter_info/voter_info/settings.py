@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = os.environ.copy()
-IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
+IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,7 +24,7 @@ IN_PRODUCTION = os.getenv('IN_PRODUCTION', False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if IN_PRODUCTION:
-    SECRET_KEY = os.getenviron('DJANGO_SECRET_KEY', None)
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = False
 else:
     DEBUG = True
@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
+    # django framework
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+
+    # 3rd party libs
+    'rest_framework',
+
+    # our libs
     'voter_info',
+    'districts',
+    'offices',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +62,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if not IN_PRODUCTION:
+    MIDDLEWARE.append('voter_info.middleware.dev_cors_middleware')
 
 ROOT_URLCONF = 'voter_info.urls'
 
@@ -74,7 +85,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'voter_info.wsgi.application'
-
 
 
 # Password validation
@@ -113,9 +123,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
@@ -123,13 +132,13 @@ if IN_PRODUCTION:
     django_heroku.settings(locals())
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
-    DATABASES['default'] =  dj_database_url.config()
+    DATABASES['default'] = dj_database_url.config()
     DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 else:
     # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis', #'django.db.backends.postgresql',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'voter_info_dev',
             'HOST': '127.0.0.1',
             'PORT': '5432',
