@@ -2,27 +2,20 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+/* background image source and license */
+/* https://commons.wikimedia.org/wiki/File:Market_Street_San_Francisco_From_Twin_Peaks.jpg */
+.jumbo-style {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url('/static/Market_Street_San_Francisco_From_Twin_Peaks.jpg') no-repeat center;
+  opacity: .50;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.result {
+  margin: 20px;
 }
