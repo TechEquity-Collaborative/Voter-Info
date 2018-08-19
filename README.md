@@ -90,8 +90,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
 ## Frontend:
 
-    # We'll use yarn for package management
-    # the yarn installer will also install node if
+    # We'll use yarn for package management. The yarn installer will also install node if
     # it doesn't find it.
     $ brew install yarn
 
@@ -102,7 +101,7 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     # Then install the production version of Node
     # This command will install it and switch to the version
     # You can swap versions by using `n` if needed
-    $ n 9.5.0
+    $ n 10.9.0
 
     # Now install the current dependencies
     $ yarn install
@@ -129,6 +128,20 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
     # Install the foreman Gem
     $ gem install foreman
+
+    # WORKAROUND: If get an error about openssl installing foreman, here's what happened:
+    # Newer versions of OSX deprecated openSSL, leaving many dependencies broken. You need
+    # to reinstall ruby, but specify exactly where your openSSL libraries are.
+    # read more: https://stackoverflow.com/a/42235933
+    # First find out which version of ruby you are using:
+    $ rvm current
+    # Just use the version number, e.g. use "2.4.1" not "ruby-2.4.1"
+
+    # install openssl
+    $ brew install openssl
+
+    # then reinstall ruby with openssl
+    $ rvm reinstall $current_ruby_version --with-openssl-dir=`brew --prefix openssl`
 
     # To run your dev server use
     $ foreman start -f $git_root/Procfile.local

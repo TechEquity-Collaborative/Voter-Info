@@ -6,11 +6,27 @@ from django.contrib.gis.db import models
 from django.contrib.gis.geos import GEOSGeometry
 
 
+# a custom queryset and manager to be able to write:
+# District.objects.contains_point(lat, lon) -> QuerySet[ <Area 1>, <Area 2>,... ]
+class DistrictQuerySet(models.QuerySet):
+    def contains_point(self, lat, lon):
+        return self.filter(areas__mpoly__contains=GEOSGeometry(f'POINT({lon} {lat})')).distinct('id')
+
+
+class DistrictManager(models.Manager):
+    def get_queryset(self):
+        return DistrictQuerySet(self.model, using=self._db)
+
+    def contains_point(self, lat, lon):
+        return self.get_queryset().contains_point(lat, lon)
+
+
 class District(models.Model):
     """
     A district that's electing an office. Can have many areas,
     as specified by our 3rd-party shapefiles.
     """
+    objects = DistrictManager()
     name = models.TextField()
 
     shape_file_name = models.TextField()
@@ -18,16 +34,12 @@ class District(models.Model):
     def __repr__(self):
         return f'<District id={self.id} name={self.name}>'
 
-    @classmethod
-    def contains_point(cls, lat, lon):
-        return cls.objects.filter(areas__mpoly__contains=GEOSGeometry(f'POINT({lat} {lon})')).distinct('id')
-
 
 # a custom queryset and manager to be able to write:
 # Area.objects.contains_point(lat, lon) -> QuerySet[ <Area 1>, <Area 2>,... ]
 class AreaQuerySet(models.QuerySet):
     def contains_point(self, lat, lon):
-        return self.filter(mpoly__contains=GEOSGeometry(f'POINT({lat} {lon})'))
+        return self.filter(mpoly__contains=GEOSGeometry(f'POINT({lon} {lat})'))
 
 
 class AreaManager(models.Manager):
