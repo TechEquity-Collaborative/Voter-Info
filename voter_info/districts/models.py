@@ -32,7 +32,10 @@ class District(models.Model):
     shape_file_name = models.TextField()
 
     def __repr__(self):
-        return f'<District id={self.id} name={self.name}>'
+        return f'<District id={self.id} name="{self.name}">'
+
+    def __str__(self):
+        return self.__repr__()
 
 
 # a custom queryset and manager to be able to write:
