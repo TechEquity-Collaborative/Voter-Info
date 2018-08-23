@@ -1,2 +1,2 @@
 release: python ./voter_info/manage.py migrate
-web: gunicorn ./voter_info/voter_info.wsgi
+web: sh -c 'cd ./voter_info/ && exec gunicorn voter_info.wsgi:application --log-file -'
