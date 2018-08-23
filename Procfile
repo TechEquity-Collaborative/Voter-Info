@@ -1,2 +1,2 @@
-release: python manage.py migrate
-web: /.voter_info/gunicorn voter_info.wsgi --log-file
+release: python ./voter_info/manage.py migrate
+web: gunicorn ./voter_info/voter_info.wsgi --log-file
