@@ -72,7 +72,6 @@ class Command(BaseCommand):
                 print(f"    extracting to {relative_path}")
                 zipfile.extractall(target_extraction_path)
 
-
     def extract_shapefiles_into_database(self):
         # iterate over every directory in districts/shape_files/$jurisidiction/$office/
         pathlist = Path(f'{DISTRICTS_APP_DIRECTORY}/shape_files/').glob('**/*.shp')
