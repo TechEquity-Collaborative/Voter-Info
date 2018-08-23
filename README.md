@@ -41,8 +41,11 @@ Install:
 
 https://www.postgresql.org/download/
 
+    # e.g. to install with homebrew on macos
+    $ shell> brew install postgresql
+
     # If you installed postgres with homebrew, make sure you start your local postgres server:
-    # brew services start postgresql
+    $ bash> brew services start postgresql
 
 On MacOS Ben Mathes has found homebrew helpful, but the Postgres.app is another option for running postgres with postGIS support.
 
@@ -55,7 +58,14 @@ you cannot install with pip.
 https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/
 
 With homebrew for mac: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/#homebrew
+
 With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install/#postgresapp
+
+E.g. with homebrew:
+
+    $ brew install postgis
+    $ brew install gdal
+    $ brew install libgeoip
 
 
 #### Create a database
@@ -88,6 +98,11 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
     $ shell> python $git_root/voter_info/manage.py migrate
     $ postgres> alter role voter_info_dev_user NOSUPERUSER;
 
+#### Import Shapefiles to the Postgres Database
+
+    # run the custom manage.py command:
+    & shell> python $git_root/voter_info/manage.py import_shapefiles
+
 ## Frontend:
 
     # We'll use yarn for package management. The yarn installer will also install node if
@@ -111,54 +126,58 @@ With Postgres.app: https://docs.djangoproject.com/en/2.0/ref/contrib/gis/install
 
 ## Run your local dev server
 
-    # Since this is a Procfile based app we'll use Foreman
-    # to manage processes
-    # https://github.com/ddollar/foreman
+    # don't forget to have the heroku CLI installed
+    $ shell> npm install -g heroku
 
-    # Check to see if you have a version of ruby installed
-    # if you do, skip to installing the gem
-    # You may also want to install RVM anyway.
-    $ ruby -v
-
-    # Install RVM and Ruby
-    # This will install RVM (a Ruby version manager)
-    # and the current stable version of Ruby
-    # https://rvm.io/rvm/install
-    $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
-
-    # Install the foreman Gem
-    $ gem install foreman
-
-    # WORKAROUND: If get an error about openssl installing foreman, here's what happened:
-    # Newer versions of OSX deprecated openSSL, leaving many dependencies broken. You need
-    # to reinstall ruby, but specify exactly where your openSSL libraries are.
-    # read more: https://stackoverflow.com/a/42235933
-    # First find out which version of ruby you are using:
-    $ rvm current
-    # Just use the version number, e.g. use "2.4.1" not "ruby-2.4.1"
-
-    # install openssl
-    $ brew install openssl
-
-    # then reinstall ruby with openssl
-    $ rvm reinstall $current_ruby_version --with-openssl-dir=`brew --prefix openssl`
-
-    # To run your dev server use
-    $ foreman start -f $git_root/Procfile.local
+    # To run your dev server use heroku, which is compatible with procfiles
+    # (recall that a procfile is basically a list of commands to run)
+    $ heroku local -f $git_root/Procfile.local
 
 
 Django will run on http://127.0.0.1:8000/
 The react dev server will run on http://127.0.0.1:5000/ (or the next open port) and proxy requests to Django
 
+
+
+## Pull Requests and Heroku Builds.
+
+
+Every time you create a PR, heroku will kick off a build to see if it can create
+a server running the version of your PR. You can see the builds here:
+
+https://dashboard.heroku.com/pipelines/514a9ea9-75d3-4056-81cc-24b8aebd5592
+
+
+
 ## Deployment Guide
 
-* SET HEROKU CONFIG VARIABLE FOR SECRET KEY. STORE WHERE?
-* PUSH TO HEROKU? HEROKU MASTER?
-* HEROKU COMMAND LINE FOR TEC ACCOUNT, NOT PERSONAL
-   install the heroku command line:
-   https://devcenter.heroku.com/articles/heroku-command-line
+install the heroku command line:
+https://devcenter.heroku.com/articles/heroku-command-line
 
-## Import Shapefiles to the Postgres Database
+    # don't forget to have the heroku CLI installed
+    $ shell> npm install -g heroku
 
-    # run the custom manage.py command:
-    & shell> python $git_root/voter_info/manage.py import_shapefiles
+Then follow the guide to get started: https://devcenter.heroku.com/articles/heroku-cli#getting-started
+
+    $ shell> heroku login
+
+    # confirm your login is part of the TEC:
+    $ shell> heroku teams
+    techequity
+    $ shell> heroku apps --team techequity
+    === Apps in team techequity
+    voter-info
+    voter-info-pr-15
+    ...
+
+
+The Heroku CLI defaults to your personal account and requires the --team flag when
+performing team actions. If you generally work under an organization, you can set
+the HEROKU_ORGANIZATION environment variable in order to default to that organization.
+
+    $ bash> export HEROKU_ORGANIZATION=techequity
+    $ bash> heroku apps
+    === Apps in team techequity
+    voter-info
+    voter-info-pr-15
+    ...
