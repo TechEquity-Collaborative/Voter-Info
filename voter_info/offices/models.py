@@ -9,6 +9,7 @@ class Office(models.Model):
         ordering = ('district', 'name')
 
     name = models.TextField(null=False)
+    description = models.TextField(null=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=False, related_name='offices')
 
     def __str__(self):
