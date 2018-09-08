@@ -30,7 +30,7 @@ else:
     DEBUG = True
     SECRET_KEY = '270i7+@=r$sc#1hv!6#lkl6j+fhd8cwvn6$^ijk4q6l#0d&nu1'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-
     # 3rd party libs
     'rest_framework',
 
@@ -52,6 +51,12 @@ INSTALLED_APPS = [
     'districts',
     'offices',
 ]
+
+if IN_PRODUCTION:
+    INSTALLED_APPS = INSTALLED_APPS + (
+        'raven.contrib.django.raven_compat',
+    )
+    from raven.contrib.django.models import client
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
