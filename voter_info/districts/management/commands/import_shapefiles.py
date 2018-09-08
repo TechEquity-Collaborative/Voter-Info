@@ -14,9 +14,17 @@ import districts
 from districts.models import District, Area
 from offices.models import Office
 
+
+# it's fine if the public can see this URL -- all it provides is the ability the *view* the spreadsheet,
+# but nobody can edit it. Worth noting that all the information in that sheet is about public officials,
+# public offices, and other public information.
+GOOGLE_SHEET_CSV_DOWNLOAD_URL = 'https://docs.google.com/spreadsheets/d/1oj1fc_CODd0waEYQFqluQhl8zZP0qjMNJHN0DlFfHr8/export?format=csv&id=1oj1fc_CODd0waEYQFqluQhl8zZP0qjMNJHN0DlFfHr8&gid=1344433296'
+
 DISTRICTS_APP_DIRECTORY = os.path.abspath(os.path.join(os.path.dirname(districts.__file__)))
 
 OFFICE_TO_SHAPEFILE_URLS_CSV_FILENAME = 'Bay Area Elected Offices - District Boundary File Links.csv'
+
+CSV_WITH_POSITIONS_AND_DISTRICTS = f'{DISTRICTS_APP_DIRECTORY}/{OFFICE_TO_SHAPEFILE_URLS_CSV_FILENAME}'
 
 DJANGO_MODEL_TO_SHAPEFILE_KEY = {
     'mpoly': 'MULTIPOLYGON',
@@ -28,8 +36,16 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
+        self.download_district_boundary_csv()
         self.download_shapefiles_from_urls_in_csv()
-        self.extract_shapefiles_into_database()
+
+    def download_district_boundary_csv(self):
+        response = urlopen(GOOGLE_SHEET_CSV_DOWNLOAD_URL)
+        csv_contents = response.read()
+        # 'wb' mode is the mode to write bytes to the file. the urlopen response.read() object returns
+        # bytes, not a string. We just write the bytes directly to not futz with unicode conversion at all
+        with open(CSV_WITH_POSITIONS_AND_DISTRICTS, 'wb') as csv_with_positions_and_districts:
+            csv_with_positions_and_districts.write(csv_contents)
 
     def download_shapefiles_from_urls_in_csv(self):
         """
@@ -40,15 +56,15 @@ class Command(BaseCommand):
 
         After zipfile extraction, the shapefiles are loaded into the postgres database as Districts and Offices
         """
-        csv_with_positions_and_districts = f'{DISTRICTS_APP_DIRECTORY}/{OFFICE_TO_SHAPEFILE_URLS_CSV_FILENAME}'
-
-        with open(csv_with_positions_and_districts) as csv_file:
+        self.already_connected_area_ids = set()
+        with open(CSV_WITH_POSITIONS_AND_DISTRICTS) as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
-                district = row['Jurisdiction Level']
-                office = row['Office']
+                district_name = row['Jurisdiction Level']
+                office_name = row['Office']
+                office_description = row['Office Description']
                 shapefile_archive_download_link = row['linkurl']
-                print(f"Getting shapefiles for {district} - {office}")
+                print(f"Importing shapefiles for {district_name} - {office_name}")
                 try:
                     response = urlopen(shapefile_archive_download_link)
                 except Exception as e:
@@ -58,55 +74,41 @@ class Command(BaseCommand):
                 try:
                     zipfile = ZipFile(BytesIO(response.read()))
                 except BadZipFile as e:
-                    print(f"    url does not have a zip of shapefiles: {shapefile_archive_download_link}")
+                    print(f"    *******************************************************************************")
+                    print(f"    ERROR: url does not have a zip of shapefiles: {shapefile_archive_download_link}")
+                    print(f"    *******************************************************************************")
                     continue
                 # extract into a jurisidction/office tree folder structure.
-                relative_path = f'shape_files/{district}/{office}/'
+                relative_path = f'shape_files/{district_name}/{office_name}/'
                 target_extraction_path = f'{DISTRICTS_APP_DIRECTORY}/{relative_path}'
                 # empty out any old shapefiles in there.
                 try:
                     shutil.rmtree(target_extraction_path)
                     print(f"    cleaned old shapefiles in {relative_path}")
                 except FileNotFoundError:
+                    # it's ok if we tried to delete an old shapefile directory but there wasn't one
+                    # there yet -- just means this is the first time we downloaded this shapefile
                     pass
                 print(f"    extracting to {relative_path}")
                 zipfile.extractall(target_extraction_path)
+                self.extract_shapefile_into_database(target_extraction_path, district_name,
+                                                     office_name, office_description)
 
-    def extract_shapefiles_into_database(self):
-        # iterate over every directory in districts/shape_files/$jurisidiction/$office/
-        pathlist = Path(f'{DISTRICTS_APP_DIRECTORY}/shape_files/').glob('**/*.shp')
-        self.already_connected_area_ids = set()
-        for shape_file_path in pathlist:
-            full_path = '/'.join(shape_file_path.parts)
+    def extract_shapefile_into_database(self, extracted_folder_path, district_name, office_name, office_description):
+        district, created = District.objects.get_or_create(name=district_name)
+        if not created:
+            print(f'    district "{district_name}" already imported')
+        else:
+            self.create_areas_and_district(district, extracted_folder_path)
+        self.create_office_for_district(district, office_name, office_description)
 
-            # different zip files contain different tree structures within /shape_files/$district/$office,
-            # so we find the location in the path of "shape_files", and then take the next two indexes to
-            # extrat the jurisidction and office
-            root_shape_file_directory_index = shape_file_path.parts.index('shape_files')
-
-            district_name = shape_file_path.parts[root_shape_file_directory_index + 1]
-            office_name = shape_file_path.parts[root_shape_file_directory_index + 2]
-
-            district, created = District.objects.get_or_create(name=district_name)
-            if not created:
-                print(f'district "{district_name}" already imported')
-            else:
-                self.create_areas_and_districts(district, full_path)
-
-            self.create_offices_for_districts(district, office_name)
-
-    def create_areas_and_districts(self, district, full_path):
-        print(f'importing district: "{district.name}"')
+    def create_areas_and_district(self, district, full_path):
+        print(f'    importing district: "{district.name}"')
         district.shape_file_name = full_path
         district.save()
 
-        layer_mapping = LayerMapping(
-            Area,
-            full_path,
-            DJANGO_MODEL_TO_SHAPEFILE_KEY,
-            transform=False,
-            encoding='iso-8859-1',
-        )
+        layer_mapping = LayerMapping(Area, full_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
+                                     transform=False, encoding='iso-8859-1')
         layer_mapping.save(strict=True)
 
         areas_to_save_to_district = Area.objects.exclude(id__in=self.already_connected_area_ids)
@@ -116,6 +118,11 @@ class Command(BaseCommand):
             self.already_connected_area_ids.add(area.id)
         assert(Area.objects.filter(district_id__isnull=True).count() == 0)
 
-    def create_offices_for_districts(self, district, office_name):
+    def create_office_for_district(self, district, office_name, office_description):
         office_for_district, was_created = Office.objects.get_or_create(name=office_name, district=district)
-        print(f'created office: {office_for_district} for district: {district}')
+        # the description can be modified in the TEC spreadsheet without us wanting to create
+        # a new office db row.
+        if office_for_district.description != office_description:
+            office_for_district.description = office_description
+            office_for_district.save()
+        print(f'    {"created" if was_created else "updated"} office: {office_name} for district: {district.name}')

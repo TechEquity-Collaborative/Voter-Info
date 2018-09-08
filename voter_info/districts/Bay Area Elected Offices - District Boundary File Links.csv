@@ -1,60 +1,60 @@
-Jurisdiction Level,Office,Link,linkurl,Notes
-Alameda County,"Trustee, Board of Education","All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,Superintendent of Schools,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,Assessor,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,Auditor/Controller,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,District Attorney,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,Sheriff/Coroner,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,Treasurer/Tax Collector,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,Superior Court Judge,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-Alameda County,County Supervisor,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
-California,State Assembly,Via Statewide Database,http://statewidedatabase.org/geography.html,
-California,State Senate,Via Statewide Database,http://statewidedatabase.org/geography.html,
-California,Board of Equalization,Via Statewide Database,http://statewidedatabase.org/pub/data/GEOGRAPHY/DECENNIAL2010/2011_boe_state_shp.zip,
-City of Alameda,Mayor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Alameda,Councilmember,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Alameda,Auditor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Alameda,Treasurer,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Alameda,School Board Member,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Alameda,Healthcare District Director,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Health-Care-Districts-within-Alameda-County/wad8-249m,"Export to Shapefile, linked with Eden and Washington"
-City of Berkeley,Mayor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Berkeley,Councilmember,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/City-Council-Districts-within-Alameda-County-2014-/xjgj-6a36,Export as shapefile. Linked with Oakland and San Leandro
-City of Berkeley,City Auditor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Berkeley,"Commisioner, Rent Stabilization Board","All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Berkeley,School Board Director,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Fremont,Councilmember,Via City,http://egis-cofgis.opendata.arcgis.com/datasets?q=council+district&sort_by=relevance,New for 2018 election
-City of Oakland,Mayor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Oakland,City Council,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/City-Council-Districts-within-Alameda-County-2014-/xjgj-6a36,Export as shapefile. Linked with Berkeley and San Leandro
-City of Oakland,Attorney,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Oakland,Auditor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-City of Oakland,School Board Member,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
-San Francisco,Supervisor,Via Board of Elections,http://sfgov.org/elections/sites/default/files/Documents/Maps/2017lines.zip,
-San Francisco,Board of Education,Via Board of Elections,http://sfgov.org/elections/sites/default/files/Documents/Maps/2017lines.zip,
-San Francisco,Superintendent of Schools,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,Assessor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,Auditor-Controller/Clerk Recorder,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,District Attorney,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,Sheriff-Coroner,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,Treasurer-Tax Collector,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,Superior Court Judge,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-San Francisco,Mayor,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
-Special District,AC Transit Board,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/AC-Transit-Districts-in-Alameda-County/xfqi-dd84,Export to Shapefile
-Special District,BART Board,Via BART/Google Maps,https://www.google.com/maps/d/u/0/viewer?mid=1Rr1dKRdePfUMMDPIr6PniD7USw0&ll=37.77784302652854%2C-122.32153249999999&z=9,"Can download as KML, convert to shapefile"
-Special District,EBMUD Director,Via Alameda County Data Ctr,https://data.acgov.org/Geospatial-Data/East-Bay-Municipal-Utility-District-within-Alameda/6wky-2dcd,Export to Shapefile
-Special District,EB Regional Parks District Director,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/East-Bay-Regional-Park-District-within-Alameda-Cou/e5tr-g9mg,Export to Shapefile
-Special District,"Trustee, Peralta Community College District",Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
-Special District,"Trustee, Chabot-Las Positas Community College District",Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
-Special District,"Trustee, Ohlone Community College District",Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
-Special District,"Trustee, San Joaquin Community College District",Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
-Special District,Union Sanitary District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Sanitary-Districts-within-Alameda-County/u379-vzqt,"Export to Shapefile, linked with other sanitary districts"
-Special District,Zone 7 Water Agency Board Member,PDF Only,http://www.zone7water.com/images/pdf_docs/maps/mapzoom61.pdf,Needs to be digitized as a shapefile
-Special District,Alameda County Water District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Alameda-County-Water-District/na5s-cmfd,Export to Shapefile
-Special District,Livermore Area Recreation and Park District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Recreation-and-Park-Districts/mr4m-fm9a,"Export to Shapefile, with Hayward District"
-Special District,Hayward Area Recreation and Park District Director,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Recreation-and-Park-Districts/mr4m-fm9a,"Export to Shapefile, with Livermore District"
-Special District,Oro Loma Sanitary District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Sanitary-Districts-within-Alameda-County/u379-vzqt,"Export to Shapefile, linked with other sanitary districts"
-Special District,Washington Township Heathcare District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Health-Care-Districts-within-Alameda-County/wad8-249m,"Export to Shapefile, linked with Eden and Alameda"
-Special District,Eden Health District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Health-Care-Districts-within-Alameda-County/wad8-249m,"Export to Shapefile, linked with Washington and Alameda"
-Special District,Castro Valley Sanitary District Board Member,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Sanitary-Districts-within-Alameda-County/u379-vzqt,"Export to Shapefile, linked with other sanitary districts"
-Special District,Byron Bethany Irrigation District Director,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Byron-Bethany-Irrigation-District-within-Alameda-C/kbxv-9apv,Export to Shapefile
-Special District,Dublin San Ramon Services District Director,PDF Only,http://www.dsrsd.com/home/showdocument?id=2025,Needs to be digitized as a shapefile
-Special District,Fairview Fire Protection District Director,PDF Only,https://www.fairviewfiredistrict.org/wp-content/uploads/sites/70/2017/06/Fairview-Fire-District-map.pdf,Needs to be digitized as a shapefile
+Jurisdiction Level,Office,Office Description,Link,linkurl,Notes
+Alameda County,"Trustee, Board of Education","The Alameda County Board of Education consists of seven members, each elected from a different area of the county, who serve as the governing board for the schools and student services and programs operated by the County Superintendent of Schools. Some of the board’s responsibilities include approving policies and curriculums, approving annual budget, approving purchase or lease of property for programs, etc.","All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,Superintendent of Schools,"The Superintendent of Alameda County Schools works to ensure that every student benefits from a quality education, no matter what their social condition may indicate about their chances for success. The Superintendent is the chief administrator for the County Office of Education and operates educational programs for students not served by district schools, including justice-involved, pregnant and parenting, foster and homeless youth, as well as infants with special needs.","All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,Assessor,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,Auditor/Controller,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,District Attorney,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,Sheriff/Coroner,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,Treasurer/Tax Collector,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,Superior Court Judge,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+Alameda County,County Supervisor,,"All Counties, via State and Census",https://data.ca.gov/sites/default/files/CA_Counties_0.zip,Countywide
+California,State Assembly,,Via Statewide Database,http://statewidedatabase.org/geography.html,
+California,State Senate,,Via Statewide Database,http://statewidedatabase.org/geography.html,
+California,Board of Equalization,,Via Statewide Database,http://statewidedatabase.org/pub/data/GEOGRAPHY/DECENNIAL2010/2011_boe_state_shp.zip,
+City of Alameda,Mayor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Alameda,Councilmember,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Alameda,Auditor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Alameda,Treasurer,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Alameda,School Board Member,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Alameda,Healthcare District Director,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Health-Care-Districts-within-Alameda-County/wad8-249m,"Export to Shapefile, linked with Eden and Washington"
+City of Berkeley,Mayor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Berkeley,Councilmember,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/City-Council-Districts-within-Alameda-County-2014-/xjgj-6a36,Export as shapefile. Linked with Oakland and San Leandro
+City of Berkeley,City Auditor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Berkeley,"Commisioner, Rent Stabilization Board",,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Berkeley,School Board Director,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Fremont,Councilmember,,Via City,http://egis-cofgis.opendata.arcgis.com/datasets/271fe522bbc14225ac1e89127f7c1d5e_0.zip,New for 2018 election
+City of Oakland,Mayor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Oakland,City Council,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/City-Council-Districts-within-Alameda-County-2014-/xjgj-6a36,Export as shapefile. Linked with Berkeley and San Leandro
+City of Oakland,Attorney,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Oakland,Auditor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+City of Oakland,School Board Member,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,Citywide
+San Francisco,Supervisor,,Via Board of Elections,http://sfgov.org/elections/sites/default/files/Documents/Maps/2017lines.zip,
+San Francisco,Board of Education,,Via Board of Elections,http://sfgov.org/elections/sites/default/files/Documents/Maps/2017lines.zip,
+San Francisco,Superintendent of Schools,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,Assessor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,Auditor-Controller/Clerk Recorder,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,District Attorney,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,Sheriff-Coroner,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,Treasurer-Tax Collector,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,Superior Court Judge,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+San Francisco,Mayor,,"All CA Cities, Via Caltrans",http://www.dot.ca.gov/hq/tsip/gis/datalibrary/zip/Boundaries/Cities2015.zip,City/Countywide
+Special District,AC Transit Board,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/AC-Transit-Districts-in-Alameda-County/xfqi-dd84,Export to Shapefile
+Special District,BART Board,,Via BART/Google Maps,https://www.google.com/maps/d/u/0/viewer?mid=1Rr1dKRdePfUMMDPIr6PniD7USw0&ll=37.77784302652854%2C-122.32153249999999&z=9,"Can download as KML, convert to shapefile"
+Special District,EBMUD Director,,Via Alameda County Data Ctr,https://data.acgov.org/Geospatial-Data/East-Bay-Municipal-Utility-District-within-Alameda/6wky-2dcd,Export to Shapefile
+Special District,EB Regional Parks District Director,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/East-Bay-Regional-Park-District-within-Alameda-Cou/e5tr-g9mg,Export to Shapefile
+Special District,"Trustee, Peralta Community College District",,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
+Special District,"Trustee, Chabot-Las Positas Community College District",,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
+Special District,"Trustee, Ohlone Community College District",,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
+Special District,"Trustee, San Joaquin Community College District",,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Community-College-Districts-within-Alameda-County/bdqp-je9q,"Export to Shapefile, linked with other CC Districts"
+Special District,Union Sanitary District Board Member,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Sanitary-Districts-within-Alameda-County/u379-vzqt,"Export to Shapefile, linked with other sanitary districts"
+Special District,Zone 7 Water Agency Board Member,,PDF Only,http://www.zone7water.com/images/pdf_docs/maps/mapzoom61.pdf,Needs to be digitized as a shapefile
+Special District,Alameda County Water District Board Member,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Alameda-County-Water-District/na5s-cmfd,Export to Shapefile
+Special District,Livermore Area Recreation and Park District Board Member,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Recreation-and-Park-Districts/mr4m-fm9a,"Export to Shapefile, with Hayward District"
+Special District,Hayward Area Recreation and Park District Director,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Recreation-and-Park-Districts/mr4m-fm9a,"Export to Shapefile, with Livermore District"
+Special District,Oro Loma Sanitary District Board Member,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Sanitary-Districts-within-Alameda-County/u379-vzqt,"Export to Shapefile, linked with other sanitary districts"
+Special District,Washington Township Heathcare District Board Member,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Health-Care-Districts-within-Alameda-County/wad8-249m,"Export to Shapefile, linked with Eden and Alameda"
+Special District,Eden Health District Board Member,,Via Alameda County Data Center,https://data.acgov.org/Geospatial-Data/Health-Care-Districts-within-Alameda-County/wad8-249m,"Export to Shapefile, linked with Washington and Alameda"
+Special District,Castro Valley Sanitary District Board Member,,Via Alameda County Data Center,https://data.acgov.org/api/geospatial/u379-vzqt?method=export&format=Shapefile,"Export to Shapefile, linked with other sanitary districts"
+Special District,Byron Bethany Irrigation District Director,,Via Alameda County Data Center,https://data.acgov.org/api/geospatial/kbxv-9apv?method=export&format=Shapefile,Export to Shapefile
+Special District,Dublin San Ramon Services District Director,,PDF Only,http://www.dsrsd.com/home/showdocument?id=2025,Needs to be digitized as a shapefile
+Special District,Fairview Fire Protection District Director,,PDF Only,https://www.fairviewfiredistrict.org/wp-content/uploads/sites/70/2017/06/Fairview-Fire-District-map.pdf,Needs to be digitized as a shapefile

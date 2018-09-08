@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.db import transaction
 
+from offices.models import Office
 from districts.models import District, Area
 from districts.management.commands.import_shapefiles import Command as IngestShapefilesCommand
 
@@ -12,16 +13,20 @@ def ingest_shapefile_from_csv(model_admin, request, queryset):
     and run "ingest shapefiles from CSV"
     '''
     ingester = IngestShapefilesCommand()
-    ingester.download_shapefiles_from_urls_in_csv()
-    ingester.extract_shapefiles_into_database()
+    ingester.handle()
 
 
 # docs here: docs.djangoproject.com/en/1.11/ref/contrib/admin/actions/#adding-actions-to-the-modeladmin
 ingest_shapefile_from_csv.short_description = 'ingest offices and districts. Takes several minutes. Ok to run multiple times.'
 
 
+class OfficeInline(admin.StackedInline):
+    model = Office
+
+
 class DistrictAdmin(admin.ModelAdmin):
     actions = admin.ModelAdmin.actions + [ingest_shapefile_from_csv]
+    inlines = [OfficeInline]
 
 
 admin.site.register(District, DistrictAdmin)
