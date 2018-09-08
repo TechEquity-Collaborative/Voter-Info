@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     # 3rd party libs
     'rest_framework',
-    'raven.contrib.django.raven_compat',
 
     # our libs
     'voter_info',
@@ -53,7 +52,6 @@ INSTALLED_APPS = [
     'offices',
 ]
 
-from raven.contrib.django.models import client
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,6 +62,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if IN_PRODUCTION:
+    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+    from raven.contrib.django.models import client
 
 if not IN_PRODUCTION:
     MIDDLEWARE.append('voter_info.middleware.dev_cors_middleware')
