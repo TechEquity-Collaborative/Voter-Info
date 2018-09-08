@@ -53,9 +53,7 @@ INSTALLED_APPS = [
 ]
 
 if IN_PRODUCTION:
-    INSTALLED_APPS = INSTALLED_APPS + (
-        'raven.contrib.django.raven_compat',
-    )
+    INSTALLED_APPS = INSTALLED_APPS.append('raven.contrib.django.raven_compat')
     from raven.contrib.django.models import client
 
 MIDDLEWARE = [
