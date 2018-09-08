@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     # 3rd party libs
     'rest_framework',
+    'raven.contrib.django.raven_compat',
 
     # our libs
     'voter_info',
@@ -52,9 +53,7 @@ INSTALLED_APPS = [
     'offices',
 ]
 
-if IN_PRODUCTION:
-    INSTALLED_APPS = INSTALLED_APPS.append('raven.contrib.django.raven_compat')
-    from raven.contrib.django.models import client
+from raven.contrib.django.models import client
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
