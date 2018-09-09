@@ -26,11 +26,15 @@ IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 if IN_PRODUCTION:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = False
+    RAVEN_CONFIG = {
+        # TODO(Eric) Wire up releases
+        'dsn': os.getenv('SENTRY_DSN', None),
+    }
 else:
     DEBUG = True
     SECRET_KEY = '270i7+@=r$sc#1hv!6#lkl6j+fhd8cwvn6$^ijk4q6l#0d&nu1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,9 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-
     # 3rd party libs
     'rest_framework',
+    'raven.contrib.django.raven_compat',
+    # handle's production static assets
+    'whitenoise.runserver_nostatic',
 
     # our libs
     'voter_info',
@@ -55,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,11 +132,12 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
     import django_heroku
-    django_heroku.settings(locals())
+    django_heroku.settings(locals(), staticfiles=False)
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
