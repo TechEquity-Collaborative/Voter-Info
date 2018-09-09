@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     # 3rd party libs
     'rest_framework',
+    'raven.contrib.django.raven_compat'
 
     # our libs
     'voter_info',
@@ -66,9 +67,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
-if IN_PRODUCTION:
-    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
 if not IN_PRODUCTION:
     MIDDLEWARE.append('voter_info.middleware.dev_cors_middleware')
@@ -132,7 +130,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'voter_info.storage.WhiteNoiseStaticFilesStorage'
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
