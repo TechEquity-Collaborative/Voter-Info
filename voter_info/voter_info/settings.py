@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 env = os.environ.copy()
 IN_PRODUCTION = os.getenv('ON_HEROKU', False)
@@ -25,12 +27,15 @@ IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 # SECURITY WARNING: keep the secret key used in production secret!
 if IN_PRODUCTION:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
-    DEBUG = False
+    DEBUG = os.getenv('DEBUG', False)
+    RAVEN_CONFIG = {
+        'dsn': os.getenv('SENTRY_DSN', None),
+    }
 else:
     DEBUG = True
     SECRET_KEY = '270i7+@=r$sc#1hv!6#lkl6j+fhd8cwvn6$^ijk4q6l#0d&nu1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,11 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-
     # 3rd party libs
     'rest_framework',
+    'raven.contrib.django.raven_compat',
 
     # our libs
     'voter_info',
@@ -55,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,14 +129,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
     import django_heroku
-    django_heroku.settings(locals())
+    django_heroku.settings(locals(), staticfiles=False)
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
