@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +27,10 @@ IN_PRODUCTION = os.getenv('ON_HEROKU', False)
 if IN_PRODUCTION:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = os.getenv('DEBUG', False)
+    RAVEN_CONFIG = {
+        'dsn': os.getenv('SENTRY_DSN'),
+        'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+    }
 else:
     DEBUG = True
     SECRET_KEY = '270i7+@=r$sc#1hv!6#lkl6j+fhd8cwvn6$^ijk4q6l#0d&nu1'
@@ -52,7 +57,6 @@ INSTALLED_APPS = [
     'offices',
 ]
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,7 +70,6 @@ MIDDLEWARE = [
 
 if IN_PRODUCTION:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
-    from raven.contrib.django.models import client
 
 if not IN_PRODUCTION:
     MIDDLEWARE.append('voter_info.middleware.dev_cors_middleware')

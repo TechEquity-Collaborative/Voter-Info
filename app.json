@@ -4,21 +4,15 @@
     "postdeploy": "python voter_info.manage.py migrate --noinput"
   },
   "env": {
-    "ON_HEROKU": {
-      "description": "Shows the app is on Heroku",
-      "value": "true"
-    },
-    "BUILD_WITH_GEO_LIBRARIES": {
-      "value": "1"
-    },
-    "GDAL_LIBRARY_PATH": {
-      "value": "/app/.heroku/vendor/lib/libgdal.so"
-    },
-    "GEOS_LIBRARY_PATH": {
-      "value": "/app/.heroku/vendor/lib/libgeos_c.so"
-    },
+    "ON_HEROKU": "true",
+    "BUILD_WITH_GEO_LIBRARIES": "1",
+    "GDAL_LIBRARY_PATH": "/app/.heroku/vendor/lib/libgdal.so",
+    "GEOS_LIBRARY_PATH": "/app/.heroku/vendor/lib/libgeos_c.so",
     "DJANGO_SECRET_KEY": {
       "generator": "secret"
+    },
+    "SENTRY_DSN": {
+      "required": true
     }
   },
   "stack": "heroku-16",
