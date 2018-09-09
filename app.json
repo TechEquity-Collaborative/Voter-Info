@@ -11,6 +11,7 @@
     "DJANGO_SECRET_KEY": {
       "generator": "secret"
     },
+    "DEBUG_COLLECTSTATIC": 1,
     "SENTRY_DSN": {
       "required": true
     }

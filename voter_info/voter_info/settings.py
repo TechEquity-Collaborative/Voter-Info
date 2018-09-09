@@ -28,7 +28,7 @@ if IN_PRODUCTION:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
     DEBUG = os.getenv('DEBUG', False)
     RAVEN_CONFIG = {
-        'dsn': os.getenv('SENTRY_DSN'),
+        'dsn': os.getenv('SENTRY_DSN', None),
     }
 else:
     DEBUG = True
