@@ -130,6 +130,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'voter_info.storage.WhiteNoiseStaticFilesStorage'
 
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
