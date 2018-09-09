@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     # 3rd party libs
     'rest_framework',
-    'raven.contrib.django.raven_compat'
+    'raven.contrib.django.raven_compat',
 
     # our libs
     'voter_info',
