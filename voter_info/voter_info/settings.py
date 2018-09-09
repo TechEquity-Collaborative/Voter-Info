@@ -139,7 +139,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
     import django_heroku
-    django_heroku.settings(locals(staticfiles=False))
+    django_heroku.settings(locals(), staticfiles=False)
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
