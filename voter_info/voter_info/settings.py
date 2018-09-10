@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     # 3rd party libs
     'rest_framework',
     'raven.contrib.django.raven_compat',
-    # handle's production static assets
-    'whitenoise.runserver_nostatic',
 
     # our libs
     'voter_info',
@@ -63,7 +61,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,7 +140,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 if IN_PRODUCTION:
     # Configure Django App for Heroku.
     import django_heroku
-    django_heroku.settings(locals(), staticfiles=False)
+    django_heroku.settings(locals())
     # for setting up geo-django support with heroku: https://devcenter.heroku.com/articles/postgis
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
