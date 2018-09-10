@@ -120,7 +120,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # generated frontend
-# staticfiles*
+staticfiles*
 
 # downloaded files used during district/office shapefile extraction,
 # regeneratable by the import_shapefiles management command
