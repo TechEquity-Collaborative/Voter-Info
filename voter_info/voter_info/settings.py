@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+
     # 3rd party libs
     'rest_framework',
     'raven.contrib.django.raven_compat',
