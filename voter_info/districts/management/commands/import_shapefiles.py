@@ -59,6 +59,7 @@ class Command(BaseCommand):
         with open(CSV_WITH_POSITIONS_AND_DISTRICTS) as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
+                import pdb; pdb.set_trace()
                 district_name = row['Jurisdiction Level']
                 office_name = row['Office']
                 office_description = row['Office Description']
