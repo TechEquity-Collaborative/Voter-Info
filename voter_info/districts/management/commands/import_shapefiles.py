@@ -1,6 +1,7 @@
 import os
 import csv
 import shutil
+import pathlib
 from urllib.request import urlopen
 from io import BytesIO
 from zipfile import ZipFile, BadZipFile
@@ -59,7 +60,6 @@ class Command(BaseCommand):
         with open(CSV_WITH_POSITIONS_AND_DISTRICTS) as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
-                import pdb; pdb.set_trace()
                 district_name = row['Jurisdiction Level']
                 office_name = row['Office']
                 office_description = row['Office Description']
@@ -102,12 +102,24 @@ class Command(BaseCommand):
             self.create_areas_and_district(district, extracted_folder_path)
         self.create_office_for_district(district, office_name, office_description)
 
-    def create_areas_and_district(self, district, full_path):
+    def create_areas_and_district(self, district, path_to_shapefile_zip_extraction):
         print(f'    importing district: "{district.name}"')
-        district.shape_file_name = full_path
+        # each zipfile can have different folder structure to the shapefile, so we
+        # use pathlib to search down until it finds a '.shp' (shapefile)
+        paths_to_shapefiles = pathlib.Path(path_to_shapefile_zip_extraction).glob('**/*.shp')
+        paths = [path for path in paths_to_shapefiles]
+        if len(paths) > 1:
+            raise Exception(f"More than one shapefile found for {path_to_shapefile_zip_extraction}. Expected 1")
+        if len(paths) == 0:
+            raise Exception(f"no shapefile found after extracting into {path_to_shapefile_zip_extraction}. Expected 1")
+        shapefile_path = '/'.join(paths[0].parts)
+
+        district.shape_file_name = shapefile_path
         district.save()
-        import pdb; pdb.set_trace()
-        layer_mapping = LayerMapping(Area, full_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
+
+        # this instantiation and saving of the LayerMapping creats all the Area db rows
+        # and saves them,
+        layer_mapping = LayerMapping(Area, shapefile_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
                                      transform=False, encoding='iso-8859-1')
         layer_mapping.save(strict=True)
 
