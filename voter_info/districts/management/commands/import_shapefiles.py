@@ -4,7 +4,6 @@ import shutil
 from urllib.request import urlopen
 from io import BytesIO
 from zipfile import ZipFile, BadZipFile
-from pathlib import Path
 
 from django.db import transaction
 from django.core.management import BaseCommand
@@ -106,7 +105,7 @@ class Command(BaseCommand):
         print(f'    importing district: "{district.name}"')
         district.shape_file_name = full_path
         district.save()
-
+        import pdb; pdb.set_trace()
         layer_mapping = LayerMapping(Area, full_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
                                      transform=False, encoding='iso-8859-1')
         layer_mapping.save(strict=True)
