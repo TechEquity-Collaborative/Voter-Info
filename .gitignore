@@ -124,4 +124,5 @@ staticfiles*
 
 # downloaded files used during district/office shapefile extraction,
 # regeneratable by the import_shapefiles management command
-voter_info/districts/shape_files*
+/voter_info/districts/shape_files
+/voter_info/districts/source_csv
