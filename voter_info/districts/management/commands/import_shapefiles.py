@@ -75,7 +75,7 @@ class Command(BaseCommand):
                     zipfile = ZipFile(BytesIO(response.read()))
                 except BadZipFile as e:
                     print(f"    *******************************************************************************")
-                    print(f"    ERROR: url does not have a zip of shapefiles: {shapefile_archive_download_link}")
+                    print(f"    ERROR: error extracting file from shapefile link: {shapefile_archive_download_link}: {e}")
                     print(f"    *******************************************************************************")
                     continue
                 # extract into a jurisidction/office tree folder structure.
@@ -109,26 +109,30 @@ class Command(BaseCommand):
         paths_to_shapefiles = pathlib.Path(path_to_shapefile_zip_extraction).glob('**/*.shp')
         paths = [path for path in paths_to_shapefiles]
         if len(paths) > 1:
-            raise Exception(f"More than one shapefile found for {path_to_shapefile_zip_extraction}. Expected 1")
+            print(f"    More than one shapefile found for {path_to_shapefile_zip_extraction}")
         if len(paths) == 0:
-            raise Exception(f"no shapefile found after extracting into {path_to_shapefile_zip_extraction}. Expected 1")
-        shapefile_path = '/'.join(paths[0].parts)
+            print(f"    *******************************************************************")
+            print(f"    no shapefile found after extracting into {path_to_shapefile_zip_extraction}")
+            print(f"    *******************************************************************")
 
-        district.shape_file_name = shapefile_path
-        district.save()
+        for path in paths:
+            shapefile_path = '/'.join(path.parts)
 
-        # this instantiation and saving of the LayerMapping creats all the Area db rows
-        # and saves them,
-        layer_mapping = LayerMapping(Area, shapefile_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
-                                     transform=False, encoding='iso-8859-1')
-        layer_mapping.save(strict=True)
+            district.shape_file_name = shapefile_path
+            district.save()
 
-        areas_to_save_to_district = Area.objects.exclude(id__in=self.already_connected_area_ids)
-        for area in areas_to_save_to_district.all():
-            area.district = district
-            area.save()
-            self.already_connected_area_ids.add(area.id)
-        assert(Area.objects.filter(district_id__isnull=True).count() == 0)
+            # this instantiation and saving of the LayerMapping creats all the Area db rows
+            # and saves them,
+            layer_mapping = LayerMapping(Area, shapefile_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
+                                         transform=False, encoding='iso-8859-1')
+            layer_mapping.save(strict=True)
+
+            areas_to_save_to_district = Area.objects.exclude(id__in=self.already_connected_area_ids)
+            for area in areas_to_save_to_district.all():
+                area.district = district
+                area.save()
+                self.already_connected_area_ids.add(area.id)
+            assert(Area.objects.filter(district_id__isnull=True).count() == 0)
 
     def create_office_for_district(self, district, office_name, office_description):
         office_for_district, was_created = Office.objects.get_or_create(name=office_name, district=district)
