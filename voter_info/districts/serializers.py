@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from districts.models import District, Area
-from offices.models import Office, Candidate
+from districts.models import District
+from offices.models import Office, Candidate, Area
 
 
 class AreaSerializer(serializers.ModelSerializer):
