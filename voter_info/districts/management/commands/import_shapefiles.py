@@ -11,8 +11,8 @@ from django.core.management import BaseCommand
 from django.contrib.gis.utils import LayerMapping
 
 import districts
-from districts.models import District, Area
-from offices.models import Office
+from districts.models import District
+from offices.models import Office, Area
 
 
 # it's fine if the public can see this URL -- all it provides is the ability the *view* the spreadsheet,
@@ -75,7 +75,7 @@ class Command(BaseCommand):
                     zipfile = ZipFile(BytesIO(response.read()))
                 except BadZipFile as e:
                     print(f"    *******************************************************************************")
-                    print(f"    ERROR: error extracting file from shapefile link: {shapefile_archive_download_link}: {e}")
+                    print(f"    ERROR: error with file from link: {shapefile_archive_download_link}: {e}")
                     print(f"    *******************************************************************************")
                     continue
                 # extract into a jurisidction/office tree folder structure.
@@ -95,15 +95,19 @@ class Command(BaseCommand):
                                                      office_name, office_description)
 
     def extract_shapefile_into_database(self, extracted_folder_path, district_name, office_name, office_description):
+        """
+        this method takes the folder of an expanded zip archive of shapefiles. It imports the areas
+        contained in the shapefiles and saves them to the provided office and district.
+        """
         district, created = District.objects.get_or_create(name=district_name)
-        if not created:
-            print(f'    district "{district_name}" already imported')
-        else:
-            self.create_areas_and_district(district, extracted_folder_path)
-        self.create_office_for_district(district, office_name, office_description)
+        office = self.upsert_office_for_district(district, office_name, office_description)
+        self.upsert_areas_and_office(office, extracted_folder_path)
 
-    def create_areas_and_district(self, district, path_to_shapefile_zip_extraction):
-        print(f'    importing district: "{district.name}"')
+    def upsert_areas_and_office(self, office, path_to_shapefile_zip_extraction):
+        """
+        for the provided Office record, imports the shapefiles and ties to that office
+        """
+        print(f'    importing areas for office: "{office.name}"')
         # each zipfile can have different folder structure to the shapefile, so we
         # use pathlib to search down until it finds a '.shp' (shapefile)
         paths_to_shapefiles = pathlib.Path(path_to_shapefile_zip_extraction).glob('**/*.shp')
@@ -117,24 +121,25 @@ class Command(BaseCommand):
 
         for path in paths:
             shapefile_path = '/'.join(path.parts)
-
-            district.shape_file_name = shapefile_path
-            district.save()
-
+            office.shape_file_name = shapefile_path
+            office.save()
             # this instantiation and saving of the LayerMapping creats all the Area db rows
             # and saves them,
             layer_mapping = LayerMapping(Area, shapefile_path, DJANGO_MODEL_TO_SHAPEFILE_KEY,
                                          transform=False, encoding='iso-8859-1')
             layer_mapping.save(strict=True)
-
             areas_to_save_to_district = Area.objects.exclude(id__in=self.already_connected_area_ids)
             for area in areas_to_save_to_district.all():
-                area.district = district
+                area.office = office
                 area.save()
                 self.already_connected_area_ids.add(area.id)
-            assert(Area.objects.filter(district_id__isnull=True).count() == 0)
+            assert(Area.objects.filter(office_id__isnull=True).count() == 0)
 
-    def create_office_for_district(self, district, office_name, office_description):
+    def upsert_office_for_district(self, district, office_name, office_description):
+        """
+        inserts or updates an office in a given district, using the district and office name
+        as unique identifiers
+        """
         office_for_district, was_created = Office.objects.get_or_create(name=office_name, district=district)
         # the description can be modified in the TEC spreadsheet without us wanting to create
         # a new office db row.
@@ -142,3 +147,4 @@ class Command(BaseCommand):
             office_for_district.description = office_description
             office_for_district.save()
         print(f'    {"created" if was_created else "updated"} office: {office_name} for district: {district.name}')
+        return office_for_district
